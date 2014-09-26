@@ -1,0 +1,11 @@
+base
+bitops
+digest
+dplyr
+ggplot2
+knitr
+lubridate
+RCurl
+stringr
+swirl
+tidyr
