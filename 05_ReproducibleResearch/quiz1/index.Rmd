@@ -1,17 +1,36 @@
 ---
 title       : Reproducible Research Quiz 1
 subtitle    : (Use arrow keys to navigate)
-author      : from Data Science Coursera
-job         : 
+author      : Nguyen Toan
+job         : from Data Science course on Coursera
 framework   : io2012
 highlighter : highlight.js
 hitheme     : tomorrow
-widgets     : [mathjax, quiz, boostrap]
-mode        : selfcontained
 url:
   lib: ../../libraries
   assets: ../../assets
+widgets     : [mathjax, quiz, boostrap]
+mode        : selfcontained
+
 --- &radio
+
+```{r setup, cache = F, echo = F, message = F, warning = F, tidy = F, results='hide'}
+# make this an external chunk that can be included in any file
+library(knitr)
+options(width = 100)
+opts_chunk$set(message = F, error = F, warning = F, comment = NA, fig.align = 'center', dpi = 100, tidy = F, cache.path = '.cache/', fig.path = 'fig/')
+
+options(xtable.type = 'html')
+knit_hooks$set(inline = function(x) {
+  if(is.numeric(x)) {
+    round(x, getOption('digits'))
+  } else {
+    paste(as.character(x), collapse = ', ')
+  }
+})
+knit_hooks$set(plot = knitr:::hook_plot_html)
+runif(1)
+```
 
 ## Question 1
 

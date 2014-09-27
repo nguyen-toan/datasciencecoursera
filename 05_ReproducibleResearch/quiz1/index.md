@@ -1,17 +1,20 @@
 ---
 title       : Reproducible Research Quiz 1
 subtitle    : (Use arrow keys to navigate)
-author      : from Data Science Coursera
-job         : 
+author      : Nguyen Toan
+job         : from Data Science course on Coursera
 framework   : io2012
 highlighter : highlight.js
 hitheme     : tomorrow
-widgets     : [mathjax, quiz, boostrap]
-mode        : selfcontained
 url:
   lib: ../../libraries
   assets: ../../assets
+widgets     : [mathjax, quiz, boostrap]
+mode        : selfcontained
+
 --- &radio
+
+
 
 ## Question 1
 
