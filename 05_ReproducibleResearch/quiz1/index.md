@@ -11,10 +11,14 @@ url:
   assets: ../../assets
 widgets     : [mathjax, quiz, boostrap]
 mode        : selfcontained
+---
+
+
+## About these slides
+- These are the problems for Reproducible Research Quiz 1
+- They were created using [slidify](http://ramnathv.github.io/slidify/)
 
 --- &radio
-
-
 
 ## Question 1
 
