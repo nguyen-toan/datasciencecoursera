@@ -2,6 +2,7 @@
 title       : Reproducible Research Quiz 1
 subtitle    : (Use arrow keys to navigate)
 author      : from Data Science Coursera
+job         : 
 framework   : io2012
 highlighter : highlight.js
 hitheme     : tomorrow
