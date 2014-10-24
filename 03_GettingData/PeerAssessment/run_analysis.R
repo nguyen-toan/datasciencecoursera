@@ -48,6 +48,7 @@ data.df <- rbind(train.df, test.df)
 ## 5. From the data set in step 4, creates a second, independent tidy data set 
 ## with the average of each variable for each activity and each subject.
 
+library(reshape2)
 vars <- c("activityID", "activityName", "subjectID")
 measure.vars <- setdiff(colnames(data.df), vars)
 data.melt <- melt(data.df, id=vars, measure.vars=measure.vars)
