@@ -50,4 +50,4 @@ The variables in the tidy dataset include:
 ## Description of analysis process:
 
 - For step 1 to step 4, create `create.dataset` function with argument _data.name_  which can be either 'test' or 'train'. The function merges the features, activitiy labels, subject IDs from _.txt_ files and uses `grep` function to extract only measurements of means and standard deviations. Then create trainging and test datasets, and merge them into one tidy dataset.
-- In step 5, use functions in `reshape2` package to calculate the average of each variable for each activity. The result is written into `tidy_data.txt`.
+- In step 5, use functions in `reshape2` package to calculate the average of each variable for each activity. The result is written into `[tidy_data.txt](https://github.com/nguyen-toan/datasciencecoursera/blob/master/03_GettingData/PeerAssessment/features_info.txt)`.
