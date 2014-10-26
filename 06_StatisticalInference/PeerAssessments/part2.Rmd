@@ -1,0 +1,53 @@
+---
+title: "Statistical Inference"
+author: "Nguyen Toan"
+date: "October 26th, 2014"
+output: html_document
+---
+  
+# Part 2: Basic inferential data analysis
+  
+## 1. Load the ToothGrowth data and perform some basic exploratory data analysis     
+  
+```{r}
+# load the data
+library(datasets)
+data(ToothGrowth)
+
+# some basic exploratory data analyses
+head(ToothGrowth)
+```
+
+By using `?ToothGrowth`, we can get the explanations on the data.
+```
+A data frame with 60 observations on 3 variables.
+  [,1]   len	 numeric	 Tooth length
+  [,2]	 supp	 factor	 Supplement type (VC or OJ).
+  [,3]	 dose	 numeric	 Dose in milligrams.
+```
+
+## 2. Provide a basic summary of the data
+
+```{r}
+summary(ToothGrowth)
+```  
+
+## 3. Use confidence intervals and hypothesis tests to compare tooth growth by supp and dose.  
+
+We create a linear regression model with `len` explained by `dose` and `supp` and calculate the 95% confidence intervals for the coefficients.
+  
+```{r}
+fit <- lm(len ~ dose + supp, data=ToothGrowth)
+confint(fit, level=0.95)
+```
+
+The result means that 95% of the time which we collect a different set of data and estimate parameters of the linear regression model, the coefficient estimations will vary in these confidence intervals.
+
+```{r}
+summary(fit)
+```
+
+Here we consider the null hypothesis, which assumes that the coefficients in the linear regression model are zeros.
+From the summary of the model, we see that all _p_-values are less than 0.05, which means the null hypothesis is rejected with the 5% significance level. In other words,  each variable significantly explains the variability in tooth length.
+
+For example, the coefficient of `dose` is `r fit$coefficients[[2]]`, which means that increasing the dose 1 mg (while fixing `supp`) would increase the tooth length `r fit$coefficients[[2]]` units.
