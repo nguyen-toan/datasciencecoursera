@@ -1,0 +1,66 @@
+---
+title: "Practical Machine Learning"
+author: "Nguyen Toan"
+date: "October 27th 2014"
+output: html_document
+---
+  
+## Summary
+
+One thing that people regularly do is quantify how much of a particular activity they do, but they rarely quantify how well they do it. The goal of  this project will be to use data from accelerometers on the belt, forearm, arm, and dumbell of 6 participants, who were asked to perform barbell lifts correctly and incorrectly in 5 different ways. We build a machine learning model, `Random Forest`, based on a training dataset with the accuracy 99% and apply it to a test dataset to make predictions.
+
+## Data preparation
+The data is taken from the [Human Activity Recognition](http://groupware.les.inf.puc-rio.br/har) programme at [Groupware](http://groupware.les.inf.puc-rio.br/).
+
+We download the training and test dataset from the links below.
+
+```{r}
+training.data.url <- "https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv"
+test.data.url <- "https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv"
+```
+```{r eval=FALSE}
+download.file(training.data.url, "pml-training.csv", method="curl")
+download.file(test.data.url, "pml-test.csv", method="curl")
+```
+
+Then we perform data importing and cleansing.
+```{r}
+read.data <- function(data.name) {
+  # import data
+  file.name <- paste("pml-", data.name, ".csv", sep="")
+  data <- read.csv(file.name, header=TRUE, na.strings=c("", "NA", "#DIV/0!"))
+  # remove variables with NAs or empty
+  data <- data[, -which(sapply(data, function(x) any(is.na(x)) || any(x=="")))]
+  # remove unnecessary variables
+  rm.cols <- c("X", "user_name", "raw_timestamp_part_1", "raw_timestamp_part_2", "cvtd_timestamp", "new_window", "num_window")
+  data <- data[, -which(names(data) %in% rm.cols)]
+  data
+}
+training.data <- read.data("training")
+test.data <- read.data("test")
+```
+
+Next we split the training dataset intro training and validation data, with the rate 60:40 respectively.
+```{r eval=TRUE}
+library(caret)
+trainingIndex <- createDataPartition(training.data$classe, p=.60, list=FALSE)
+training.train <- training.data[trainingIndex, ]
+training.validation <- training.data[-trainingIndex, ]
+```
+
+## Modeling
+
+We use `Random Forests` method for our machine learning model with 5-fold cross validation.
+
+```{r cache=TRUE, message=FALSE}
+library(caret)
+rf.fit <- train(classe ~ ., data=training.train, method="rf")
+```
+
+## Results
+
+```{r}
+classe.idx <- which(names(training.validation) == "classe")
+confusionMatrix(predict(rf.fit, newdata=training.validation[, -classe.idx]),
+                training.validation$classe)
+```
