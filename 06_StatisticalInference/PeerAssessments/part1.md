@@ -13,7 +13,8 @@ The exponential distribution can be simulated in R with `rexp(n, lambda)` where 
 
 ## Simulation codes
 
-```{r simulations, echo=TRUE}
+
+```r
 # Set seed
 set.seed(123)
 lambda <- 0.2
@@ -26,17 +27,29 @@ simulations <- 1000
 sim.result <- matrix(rexp(simulations * sample.size, rate=lambda), 
                      simulations, sample.size)
 sim.average <- rowMeans(sim.result)
-```  
+```
 
 ## Results
 
 **1. Show where the distribution is centered at and compare it to the theoretical center of the distribution.**    
   
-```{r}
+
+```r
 # center of the distribution
 mean(sim.average)
+```
+
+```
+## [1] 5.012
+```
+
+```r
 # theoretical center of the distribution
 1/lambda
+```
+
+```
+## [1] 5
 ```
 
 Answer: The distribution is centered close to the theoretical center of the distribution.
@@ -45,22 +58,37 @@ Answer: The distribution is centered close to the theoretical center of the dist
 **2. Show how variable it is and compare it to the theoretical variance of the distribution.**  
 
 
-```{r}
+
+```r
 # variance of the distribution
 var(sim.average)
+```
+
+```
+## [1] 0.6088
+```
+
+```r
 # theoretical variance of the distribution
 1 / ((lambda^2) * sample.size)
-```  
+```
+
+```
+## [1] 0.625
+```
 
 Answer: the variability in the distribution is close to the theoretical variance of the distribution.
 
 **3. Show that the distribution is approximately normal.**   
   
-```{r echo=TRUE, fig.cap=""}
+
+```r
 # use qqplot and qqline to show the distribution is approximately normal
 qqnorm(sim.average)
 qqline(sim.average)
 ```
+
+![](figure/unnamed-chunk-3.png) 
 
 Answer: The Q-Q plot proves the statement.  
 
@@ -68,14 +96,20 @@ Answer: The Q-Q plot proves the statement.
 
 Answer:
 
-```{r echo=TRUE}
+
+```r
 # Confidence interval
 mean(sim.average) + c(-1, 1) * 1.96 * sd(sim.average)
 ```
 
+```
+## [1] 3.483 6.541
+```
+
 Below is a more detailed graph showing the coverage of the confidence interval.
 
-```{r echo=TRUE, fig.cap=""}
+
+```r
 # Coverage of confidence interval
 lambdas <- seq(1, 10, by=0.01)
 coverage <- sapply(lambdas, function(l) {
@@ -90,3 +124,5 @@ coverage <- sapply(lambdas, function(l) {
 library(ggplot2)
 qplot(lambdas, coverage) + geom_hline(yintercept=0.95, col="blue")
 ```
+
+![](figure/unnamed-chunk-5.png) 
