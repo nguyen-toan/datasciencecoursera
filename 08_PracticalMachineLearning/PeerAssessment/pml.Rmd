@@ -41,7 +41,7 @@ test.data <- read.data("test")
 ```
 
 Next we split the training dataset intro training and validation data, with the rate 60:40 respectively.
-```{r eval=TRUE}
+```{r}
 library(caret)
 trainingIndex <- createDataPartition(training.data$classe, p=.60, list=FALSE)
 training.train <- training.data[trainingIndex, ]
@@ -54,13 +54,16 @@ We use `Random Forests` method for our machine learning model with 5-fold cross 
 
 ```{r cache=TRUE, message=FALSE}
 library(caret)
-rf.fit <- train(classe ~ ., data=training.train, method="rf")
+tc <- trainControl(method = "cv", number = 5)
+rf.fit <- train(classe ~ ., data=training.train, method="rf", trControl=tc)
 ```
 
 ## Results
 
-```{r}
-classe.idx <- which(names(training.validation) == "classe")
-confusionMatrix(predict(rf.fit, newdata=training.validation[, -classe.idx]),
+We now compare the results from the predition with the actual data.
+```{r confusion_matrix}
+classe.idx <- which(names(training.validation)=="classe")
+confusionMatrix(predict(df.fit, newdata=training.validation[, -classe.idx]),
                 training.validation$classe)
+)
 ```
