@@ -52,7 +52,7 @@ training.validation <- training.data[-trainingIndex, ]
 
 We use `Random Forest` method for our machine learning model with 5-fold cross validation.
 
-```{r cache=TRUE, message=FALSE, eval=FALSE}
+```{r cache=TRUE, message=FALSE}
 library(caret)
 tc <- trainControl(method = "cv", number = 5)
 rf.fit <- train(classe ~ ., data=training.train, method="rf", trControl=tc)
@@ -61,11 +61,8 @@ rf.fit <- train(classe ~ ., data=training.train, method="rf", trControl=tc)
 ## Results
 
 We now compare the results from the predition with the actual data.
-<<<<<<< HEAD
-```{r eval=FALSE}
-=======
+
 ```{r}
->>>>>>> 97a56dd0f72c3a23e1c60bcaaf7f7d7b499c1ef2
 classe.idx <- which(names(training.validation)=="classe")
 confusionMatrix(predict(df.fit, newdata=training.validation[, -classe.idx]),
                 training.validation$classe)
