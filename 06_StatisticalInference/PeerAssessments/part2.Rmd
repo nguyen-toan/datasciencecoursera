@@ -1,7 +1,7 @@
 ---
 title: "Statistical Inference"
 author: "Nguyen Toan"
-date: "October 26th, 2014"
+date: "October 26th, 2014" 
 output: html_document
 ---
   
