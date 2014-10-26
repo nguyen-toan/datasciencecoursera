@@ -1,0 +1,88 @@
+---
+title: "Regression Models"
+author: "Nguyen Toan"
+date: "October 26th, 2014"
+output: html_document
+---
+
+# Context
+
+You work for *Motor Trend*, a magazine about the automobile industry. Looking at a data set of a collection of cars, they are interested in exploring the relationship between a set of variables and miles per gallon (MPG) (outcome). They are particularly interested in the following two questions:
+
+- "Is an automatic or manual transmission better for MPG"
+- "Quantify the MPG difference between automatic and manual transmissions""
+
+# Executive Summary
+
+From the analysis on the `mtcars` dataset, we can conclude that manual transmission is better for MPG than automatic transmission and on average manual transmission cars have 2.94 MPGs more than automatic transmission cars.
+
+# Analysis process
+
+## Data description
+
+The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models).
+
+## Data preparation
+
+```{r}
+# load data
+library(datasets)
+data(mtcars)
+# change "transmission type" variable to categorical variable
+mtcars$am <- factor(mtcars$am, labels = c("Automatic", "Manual"))
+```
+
+## Exploratory Data Analysis
+
+We first check the normality of the `mpg` variable in order to create a linear regression model. The result shows that the distribution of `mpg` is approximately normal.
+Next from the boxplot showing the relationship between mpg and transmission type, manual transmission seems to have better mpg compared with automatic transmission. We will dig deeper into this statement with upcoming analysis.
+
+
+
+## Linear regression model
+
+First we consider linear regression model based only on the variable `am`.
+
+```{r}
+am.fit <- lm(mpg ~ am, data=mtcars)
+summary(am.fit)
+```
+
+On average manual transmission cars have 7.245 MPGs more than automatic transmission. However this model's fitting ability is rather low (R-squared value is only `r as.numeric(format(summary(am.fit)$r.squared, digits=2))`).
+
+So next we consider all variables which can explain `mpg` by using multiple regression models. We use R's `step` function for the purpose of variable selection.
+
+```{r}
+mul.fit <- step(lm(mpg ~ ., data=mtcars), direction = "both", trace=FALSE)
+summary(mul.fit)
+```
+
+We can see that this model's R-squared value (`r as.numeric(format(summary(mul.fit)$r.squared, digits=2))`) increases significantly compared to the single linear regression above, showing a high fitting ability.
+
+To confirm the difference between these two models, let us do the variance analysis.
+
+```{r}
+anova(am.fit, mul.fit)
+```
+
+With a p-value of `r anova(am.fit, mul.fit)$"Pr(>F)"[2]`, we reject the null hypothesis and claim that our multiple regression model is significantly different from the single variable model.
+
+Also from the result in the Appendix, our best model's residuals show normality and there is no evidence of heteroskedasticity.
+
+To our conclusion, with our best model, on average manual transmission cars have 2.94 MPGs more than automatic transmission cars.
+
+# Appendix
+
+## Exploratory data analysis result
+```{r fig.cap="Exploratory data analysis result"}
+par(mfrow = c(1,3))
+plot(density(mtcars$mpg), xlab="MPG", main="Density plot of MPG")
+plot(mpg ~ am, data=mtcars, main="MPG by transmission type",
+     xlab="Transmission type", ylab="MPG")
+```
+
+## Residual diagnostics for best multiple regression model
+```{r fig.cap="Residual diagnostics for best multiple regression model"}
+par(mfrow = c(2,2))
+plot(mul.fit)
+```
