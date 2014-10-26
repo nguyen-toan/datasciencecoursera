@@ -61,7 +61,7 @@ rf.fit <- train(classe ~ ., data=training.train, method="rf", trControl=tc)
 ## Results
 
 We now compare the results from the predition with the actual data.
-```{r confusion_matrix}
+```{r}
 classe.idx <- which(names(training.validation)=="classe")
 confusionMatrix(predict(df.fit, newdata=training.validation[, -classe.idx]),
                 training.validation$classe)
