@@ -3,7 +3,7 @@
 ## 3. Uses descriptive activity names to name the activities in the data set
 ## 4. Appropriately labels the data set with descriptive variable names. 
 
-# assume that the "UCI HAR Dataset" is put the same working directory
+# assume that the "UCI HAR Dataset" is put in the same R working directory
 data.rootdir <- "./UCI HAR Dataset"
 
 # Function to create (test or train) dataset
