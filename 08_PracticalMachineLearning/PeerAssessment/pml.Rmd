@@ -50,7 +50,7 @@ training.validation <- training.data[-trainingIndex, ]
 
 ## Modeling
 
-We use `Random Forests` method for our machine learning model with 5-fold cross validation.
+We use `Random Forest` method for our machine learning model with 5-fold cross validation.
 
 ```{r cache=TRUE, message=FALSE}
 library(caret)
