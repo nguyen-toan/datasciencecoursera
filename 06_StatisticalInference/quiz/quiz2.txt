@@ -1,0 +1,130 @@
+Question 1
+What is the variance of the distribution of the average an IID draw of n observations from a population with mean μ and variance σ2.
+Your Answer		Score	Explanation
+2σ/n‾‾√			
+σ2n	Correct	1.00	
+σ2			
+σ/n			
+Total		1.00 / 1.00	
+Question Explanation
+
+Var(X¯)=σ2/n
+Question 2
+Suppose that diastolic blood pressures (DBPs) for men aged 35-44 are normally distributed with a mean of 80 (mm Hg) and a standard deviation of 10. About what is the probability that a random 35-44 year old has a DBP less than 70?
+
+Your Answer		Score	Explanation
+16%	Correct	1.00	
+8%			
+22%			
+32%			
+Total		1.00 / 1.00	
+Question Explanation
+
+pnorm(70, mean = 80, sd = 10)
+## [1] 0.1587
+Question 3
+Brain volume for adult women is normally distributed with a mean of about 1,100 cc for women with a standard deviation of 75 cc. About what brain volume represents the 95th percentile?
+
+Your Answer		Score	Explanation
+977			
+1223	Correct	1.00	
+1175			
+1247			
+Total		1.00 / 1.00	
+Question Explanation
+
+qnorm(0.95, mean = 1100, sd = 75)
+## [1] 1223
+Question 4
+Refer to the previous question. Brain volume for adult women is about 1,100 cc for women with a standard deviation of 75 cc. Consider the sample mean of 100 random adult women from this population. Around what is the 95th percentile of the distribution of that sample mean?
+
+Your Answer		Score	Explanation
+1115 cc			
+1110 cc			
+1112 cc	Correct	1.00	
+1088 cc			
+Total		1.00 / 1.00	
+Question Explanation
+
+qnorm(0.95, mean = 1100, sd = 75/sqrt(100))
+## [1] 1112
+Question 5
+You flip a fair coin 5 times, about what's the probability of getting 4 or 5 heads?
+
+Your Answer		Score	Explanation
+3%			
+6%			
+19%	Correct	1.00	
+12%			
+Total		1.00 / 1.00	
+Question Explanation
+
+(54)2−5+(55)2−5≈19%
+pbinom(3, size = 5, prob = 0.5, lower.tail = FALSE)
+## [1] 0.1875
+Question 6
+The respiratory disturbance index (RDI), a measure of sleep disturbance, for a specific population has a mean of 15 (sleep events per hour) and a standard deviation of 10. They are not normally distributed. Give your best estimate of the probability that a sample mean RDI of 100 people is between 14 and 16 events per hour?
+
+Your Answer		Score	Explanation
+47.5%			
+68%	Correct	1.00	
+34%			
+95%			
+Total		1.00 / 1.00	
+Question Explanation
+
+The standard error of the mean is 10/100‾‾‾‾√=1. Thus between 14 and 16 is with one standard deviation of the mean of the distribution of the sample mean. Thus it should be about 68%.
+
+pnorm(16, mean = 15, sd = 1) - pnorm(14, mean = 15, sd = 1)
+## [1] 0.6827
+Question 7
+Consider a standard uniform density. The mean for this density is .5 and the variance is 1 / 12. You sample 1,000 observations from this distribution and take the sample mean, what value would you expect it to be near?
+
+Your Answer		Score	Explanation
+0.5	Correct	1.00	
+0.25			
+0.10			
+0.75			
+Total		1.00 / 1.00	
+Question Explanation
+
+Via the LLN it should be near .5.
+
+Question 8
+Consider a standard uniform density. The mean for this density is .5 and the variance is 1 / 12. You sample 1,000 sample means where each sample mean is comprised of 100 observations. You take the standard deviation of the 1,000 sample means. About what number would you expect it to be?
+
+Your Answer		Score	Explanation
+0.30			
+0.03	Correct	1.00	
+0.08			
+0.15			
+Total		1.00 / 1.00	
+Question Explanation
+
+The sd of the sample mean is
+1/12×100‾‾‾‾‾‾‾‾√=0.0289
+Question 9
+The number of people showing up at a bus stop is assumed to be Poisson with a mean of 5 people per hour. You watch the bus stop for 3 hours. About what's the probability of viewing 10 or fewer people?
+
+Your Answer		Score	Explanation
+0.03			
+0.12	Correct	1.00	
+0.06			
+0.08			
+Total		1.00 / 1.00	
+Question Explanation
+
+ppois(10, lambda = 15)
+## [1] 0.1185
+Question 10
+You are playing a game with a friend where you flip a coin and if it comes up heads you give her 1 dollar and if it comes up tails she gives you one dollar. What would be the variance of your earnings?
+
+Your Answer		Score	Explanation
+0.5			
+3.0			
+1	Correct	1.00	
+2.0			
+Total		1.00 / 1.00	
+Question Explanation
+
+Let X be random variables that take the value −1 with probability .5 and 1 with probability. Note that E[X]=0. Then Var(X)=.5(−1)2+.5(1)2=1.
